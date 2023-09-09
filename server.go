@@ -21,7 +21,7 @@ type LeaderboardData struct {
 }
 
 func getLeaderboard(c echo.Context, db *sql.DB) error {
-	query, err := db.Query(`SELECT * FROM leaderboard`)
+	query, err := db.Query(`SELECT * FROM Leaderboard`)
 
 	if err != nil {
 		panic(err.Error)
@@ -53,7 +53,7 @@ func addLeaderboard(c echo.Context, db *sql.DB) error {
 	c.Bind(data)
 
 	for name, times := range data.Leaderboard {
-		_, err := db.Exec(`INSERT INTO leaderboard VALUES("` + name + `", ` + strconv.Itoa(times.Time1) + `, ` + strconv.Itoa(times.Time2) + `, ` + strconv.Itoa(times.Time3) + `)`)
+		_, err := db.Exec(`INSERT INTO Leaderboard VALUES("` + name + `", ` + strconv.Itoa(times.Time1) + `, ` + strconv.Itoa(times.Time2) + `, ` + strconv.Itoa(times.Time3) + `)`)
 
 		if err != nil {
 			panic(err.Error())
