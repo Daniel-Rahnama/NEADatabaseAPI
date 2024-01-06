@@ -53,7 +53,7 @@ func addLeaderboard(c echo.Context, db *sql.DB) error {
 	c.Bind(data)
 
 	for name, times := range data.Leaderboard {
-		_, err := db.Exec(`INSERT INTO Leaderboard VALUES("` + name + `", ` + strconv.Itoa(times.Time1) + `, ` + strconv.Itoa(times.Time2) + `, ` + strconv.Itoa(times.Time3) + `)`)
+		_, err := db.Exec(`INSERT INTO Leaderboard VALUES("` + name + `", ` + strconv.Itoa(times.Time1) + `, ` + strconv.Itoa(times.Time2) + `, ` + strconv.Itoa(times.Time3) + `) ON DUPLICATE KEY UPDATE time1=` + strconv.Itoa(times.Time1) + `, time2=` + strconv.Itoa(times.Time2) + `, time3=` + strconv.Itoa(times.Time3))
 
 		if err != nil {
 			panic(err.Error())
